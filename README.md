@@ -2,7 +2,7 @@
 
 Churnalizer helps you analyze the churn vs complexity of your Ruby application.
 
-![Graph Screenshot](https://imgur.com/ZMpYjBz)
+![Graph Screenshot](screenshot.png?raw=true)
 
 What is churn vs complexity? Sandi Metz explains it nicely in her blog post
 [Breaking up the
