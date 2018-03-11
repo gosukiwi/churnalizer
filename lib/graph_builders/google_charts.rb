@@ -1,16 +1,31 @@
+require "json"
+
 module GraphBuilders
   # Generate an HTML chart using Google Charts
   #
   class GoogleCharts
-    def build(graph_data)
-      base_path = File.expand_path "#{File.dirname(__FILE__)}"
-      chart_view = File.read("#{base_path}/views/chart.html.erb")
-      template = chart_view.gsub("{{graph_data}}", graph_data.to_json)
+    def build(graph_data, save_to:)
+      write_chart graph_data, to_file: save_to
+      `open #{save_to}`
+    end
 
-      # Write in current working directory
-      File.write("chart.html", template)
-      `open chart.html`
+    private
+
+    def write_chart(graph_data, to_file:)
+      contents = compile_template graph_data
+      File.write(to_file, contents)
+    end
+
+    def compile_template(graph_data)
+      template.gsub("{{graph_data}}", graph_data.to_json)
+    end
+
+    def template
+      File.read view_path("google_chart.html")
+    end
+
+    def view_path(name)
+      "#{__dir__}/views/#{name}"
     end
   end
 end
-

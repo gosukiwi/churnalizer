@@ -1,5 +1,4 @@
 require "churnalizer/version"
-require "json"
 require "file_scanners/ruby"
 require "churn_analyzers/git"
 require "complexity_analyzers/ruby"
@@ -61,7 +60,7 @@ module Churnalizer
     end
 
     def build_graph(graph_data)
-      graph_builder.build(graph_data)
+      graph_builder.build(graph_data, save_to: "chart.html")
     end
   end
 end
