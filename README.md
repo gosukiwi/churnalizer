@@ -4,9 +4,12 @@ Churnalizer helps you analyze the churn vs complexity of your Ruby application.
 
 ![Graph Screenshot](screenshot.png?raw=true)
 
-What is churn vs complexity? Sandi Metz explains it nicely in her blog post
+What is churn vs complexity? I first learnt about it in Sandi Metz's blog post
 [Breaking up the
-Behemot](https://www.sandimetz.com/blog/2017/9/13/breaking-up-the-behemoth).
+Behemot](https://www.sandimetz.com/blog/2017/9/13/breaking-up-the-behemoth),
+there she links to [another great
+article](https://www.stickyminds.com/article/getting-empirical-about-refactoring)
+by Michael Feathers.
 
 Basically, it shows you which files need to be refactored first -- top-right
 corner of the graph. Churn is how many times a file has been changed, so you
