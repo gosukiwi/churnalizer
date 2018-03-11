@@ -1,0 +1,2 @@
+require "churnalizer/cli"
+Churnalizer::CLI.start
