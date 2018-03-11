@@ -15,7 +15,7 @@ module Churnalizer
 
     def parse_action
       case action
-      when "help"
+      when "help", ""
         help
       when "version"
         version
@@ -44,7 +44,7 @@ churnalizer version
     end
 
     def action
-      ARGV[0]
+      ARGV[0].to_s
     end
   end
 end
