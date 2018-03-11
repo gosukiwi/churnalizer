@@ -15,9 +15,7 @@ fine with being complex for a while.
 
 ## Installation
 
-```ruby
-gem 'churnalizer'
-```
+    $ gem install churnalizer
 
 ## Usage
 
