@@ -64,6 +64,10 @@ release a new version, update the version number in `version.rb`, and then run
 git commits and tags, and push the `.gem` file to
 [rubygems.org](https://rubygems.org).
 
+### Playing with the CLI
+
+To locally run the CLI use `ruby -Ilib exe/churnalizer`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at

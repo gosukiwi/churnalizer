@@ -1,2 +1,4 @@
+#!/usr/bin/env ruby
+
 require "churnalizer/cli"
-Churnalizer::CLI.start
+Churnalizer::CLI.new
