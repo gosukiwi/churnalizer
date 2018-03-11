@@ -3,6 +3,7 @@ require "json"
 require "file_scanners/ruby"
 require "churn_analyzers/git"
 require "complexity_analyzers/ruby"
+require "graph_builders/google_charts"
 
 module Churnalizer
   class Analyzer
@@ -12,14 +13,24 @@ module Churnalizer
     end
 
     def run
-      result = files.map do |file|
-        [file.gsub(path, "."), { churn: churn_for(file), complexity: complexity_for(file) }]
-      end.to_h
-
-      build_graph(result)
+      build_graph analyzed_files
     end
 
     private
+
+    def analyzed_files
+      files.map do |file|
+        [display_name_for(file), analyze(file)]
+      end.to_h
+    end
+
+    def display_name_for(file)
+      file.gsub(path, ".")
+    end
+
+    def analyze(file)
+      { churn: churn_for(file), complexity: complexity_for(file) }
+    end
 
     def files
       file_scanner.scan
@@ -45,16 +56,12 @@ module Churnalizer
       complexity_analyzer.analyze(file)
     end
 
-    def build_graph(result)
-      root_path = File.expand_path "#{File.dirname(__FILE__)}/../"
-      chart_view = File.read("#{root_path}/lib/views/chart.html.erb")
-      
-      template = chart_view.gsub("{{graph_data}}", result.to_json)
-
-      # Write in current working directory
-      File.write("chart.html", template)
-      `open chart.html`
+    def graph_builder
+      @graph_builder ||= GraphBuilders::GoogleCharts.new
     end
 
+    def build_graph(graph_data)
+      graph_builder.build(graph_data)
+    end
   end
 end
