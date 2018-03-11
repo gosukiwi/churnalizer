@@ -1,28 +1,27 @@
 # Churnalizer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/churnalizer`. To experiment with that code, run `bin/console` for an interactive prompt.
+Churnalizer helps you analyze the churn vs complexity of your Ruby application.
 
-TODO: Delete this and the text above, and describe your gem
+What is churn vs complexity? Sandi Metz explains it nicely in her blog post
+[Breaking up the
+Behemot](https://www.sandimetz.com/blog/2017/9/13/breaking-up-the-behemoth).
+
+Churn is how many times a file has been changed, so basically you want files
+which change a lot to be simple, and files which are never touched are fine with
+being complex.
+
+Of course, ideally you'll have no complex files but this allows you to identify
+what to refactor first, and warn you when things are getting out of hand.
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'churnalizer'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install churnalizer
-
 ## Usage
 
-TODO: Write usage instructions here
+    $ churnalizer my-app
 
 ## Development
 

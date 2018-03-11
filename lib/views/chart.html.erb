@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Churnalizer: Churn vs Complexity</title>
+  <style>
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"
+}
+h1,
+h2 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  margin: 0 auto 1.25em;
+  max-width: 780px;
+  line-height: 1.2;
+}
+  </style>
+</head>
+<body>
+  <h1>Churn vs Complexity</h1>
+
+  <div id="churnalizer-chart"></div>
+
+  <h2>How to read this chart?</h2>
+  <p>
+    Basically, you want to minimize the amount of files which show up at the
+    top-right of the chart. Those are files which are complex and also change
+    a lot.
+  </p>
+  <p>
+    Ideally, you don't want to have complex files, but if you do, at least make
+    sure they don't change often. The files at the top-right are good candidates
+    for refactoring.
+  </p>
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    var graph_data = {{graph_data}};
+    
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Churn');
+        data.addColumn('number', 'Complexity');
+        data.addColumn({ type: 'string', role: 'tooltip' });
+
+        for(var file in graph_data) {
+          file_data = graph_data[file]
+          data.addRow([
+            file_data.churn,
+            file_data.complexity,
+            file + "\nComplexity: " + Math.round(file_data.complexity) + "\nChurn: " + file_data.churn
+          ]);
+        }
+
+        var options = {
+          hAxis: {title: 'Churn', minValue: 0, maxValue: 50},
+          vAxis: {title: 'Complexity', minValue: 0, maxValue: 200},
+          legend: 'none',
+          crosshair: { trigger: 'both' }
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('churnalizer-chart'));
+
+        chart.draw(data, options);
+      }
+  </script>
+</body>
+</html>

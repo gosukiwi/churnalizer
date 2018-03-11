@@ -4,6 +4,6 @@ RSpec.describe Churnalizer do
   end
 
   it "does something useful" do
-    expect(Churnalizer::Analyze.run("/Users/gosukiwi/Workspace/churn-vs-complexity/churnalizer")).to eq(true)
+    expect(Churnalizer::Analyze.run("/Users/gosukiwi/Workspace/ficlovers")).to eq(true)
   end
 end
