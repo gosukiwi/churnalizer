@@ -2,16 +2,16 @@
 
 Churnalizer helps you analyze the churn vs complexity of your Ruby application.
 
+![Graph Screenshot](https://imgur.com/ZMpYjBz)
+
 What is churn vs complexity? Sandi Metz explains it nicely in her blog post
 [Breaking up the
 Behemot](https://www.sandimetz.com/blog/2017/9/13/breaking-up-the-behemoth).
 
-Churn is how many times a file has been changed, so basically you want files
-which change a lot to be simple, and files which are never touched are fine with
-being complex.
-
-Of course, ideally you'll have no complex files but this allows you to identify
-what to refactor first, and warn you when things are getting out of hand.
+Basically, it shows you which files need to be refactored first -- top-right
+corner of the graph. Churn is how many times a file has been changed, so you
+want files which change a lot to be simple. Files which are never touched are
+fine with being complex for a while.
 
 ## Installation
 
@@ -22,6 +22,16 @@ gem 'churnalizer'
 ## Usage
 
     $ churnalizer my-app-directory/
+
+This was only tested on MacOS. It uses the `open` command to make things easier,
+so when the gem is done analyzing your app, it will open the generated chart
+with your default browser. 
+
+That functionality would not work on Linux so the chart would need to be opened
+manually.
+
+Don't think it works on Windows at all, given the churn counter uses the
+following command: `cd $(dirname #{file}) && git log --oneline -- #{file} | wc -l`
 
 ### Ignoring Files
 
