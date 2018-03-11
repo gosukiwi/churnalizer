@@ -30,6 +30,12 @@ application.
 
 Usage:
 churnalizer my-app/
+
+churnalizer help
+  displays this dialog
+
+churnalizer version
+  displays current version
       """
     end
 
