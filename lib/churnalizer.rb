@@ -1,7 +1,8 @@
 require "churnalizer/version"
-require "flog"
 require "json"
 require "file_scanners/ruby"
+require "churn_analyzers/git"
+require "complexity_analyzers/ruby"
 
 module Churnalizer
   class Analyzer
@@ -28,6 +29,22 @@ module Churnalizer
       @file_scanner ||= FileScanners::Ruby.new(path)
     end
 
+    def churn_analyzer
+      @churn_analyzer ||= ChurnAnalyzers::Git.new
+    end
+
+    def churn_for(file)
+      churn_analyzer.analyze(file)
+    end
+
+    def complexity_analyzer
+      @complexity_analyzer ||= ComplexityAnalyzers::Ruby.new
+    end
+
+    def complexity_for(file)
+      complexity_analyzer.analyze(file)
+    end
+
     def build_graph(result)
       root_path = File.expand_path "#{File.dirname(__FILE__)}/../"
       chart_view = File.read("#{root_path}/lib/views/chart.html.erb")
@@ -39,24 +56,5 @@ module Churnalizer
       `open chart.html`
     end
 
-    def ruby_files_in(base_path)
-      Dir.glob("#{base_path}/**/*.rb")
-    end
-
-    # This command uses git to find out how many times this file was changed.
-    # Needless to say, it must be under version control.
-    def churn_for(file)
-      `cd $(dirname #{file}) && git log --oneline -- #{file} | wc -l`.gsub(/[\n ]+/, "").to_i
-    end
-
-    def complexity_for(file)
-      flog.reset
-      flog.flog(file)
-      flog.total_score
-    end
-
-    def flog
-      @flog ||= Flog.new
-    end
   end
 end
