@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "churnalizer/analyzer"
+require "churnalizer"
 require "byebug"
 
 RSpec.configure do |config|

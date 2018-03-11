@@ -2,24 +2,30 @@ require "churnalizer/analyzer"
 
 module Churnalizer
   class CLI
-    attr_accessor :path
-
     def initialize
-      @path = path
-      analyze
+      puts parse_action
     end
 
-    def analyze
-      return help if path.nil?
-      puts churnalizer.run
+    private
+
+    def analyze(path)
+      churnalizer = Churnalizer::Analyzer.new(path)
+      churnalizer.run
     end
 
-    def churnalizer
-      @churnalizer ||= Churnalizer::Analyzer.new(path)
+    def parse_action
+      case action
+      when "help"
+        help
+      when "version"
+        version
+      else
+        analyze action
+      end
     end
 
     def help
-      puts """This is Churnalizer, a churn vs complexity analyzer for your Ruby
+      """This is Churnalizer, a churn vs complexity analyzer for your Ruby
 application.
 
 Usage:
@@ -27,7 +33,11 @@ churnalizer my-app/
       """
     end
 
-    def path
+    def version
+      Churnalizer::VERSION
+    end
+
+    def action
       ARGV[0]
     end
   end

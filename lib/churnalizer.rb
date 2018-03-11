@@ -1,4 +1,4 @@
-require "churnalizer/version"
+require "churnalizer/analyzer"
 
 module Churnalizer
   # Silence is beautiful

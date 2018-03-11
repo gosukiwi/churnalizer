@@ -2,6 +2,7 @@ require "file_scanners/ruby"
 require "churn_analyzers/git"
 require "complexity_analyzers/ruby"
 require "graph_builders/google_charts"
+require "churnalizer/version"
 
 module Churnalizer
   class Analyzer
