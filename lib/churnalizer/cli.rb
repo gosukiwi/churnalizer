@@ -1,4 +1,4 @@
-require "churnalizer"
+require "churnalizer/analyzer"
 
 module Churnalizer
   class CLI
