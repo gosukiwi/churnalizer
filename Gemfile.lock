@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    churnalizer (0.1.2)
+    churnalizer (0.1.3)
       flog
 
 GEM
